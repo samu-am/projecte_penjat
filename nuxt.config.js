@@ -18,7 +18,10 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '~/assets/css/penjat.css',
+    'bootstrap/dist/css/bootstrap.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -46,4 +49,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Build Scripts
+  script: [
+    { src: 'https://code.jquery.com/jquery-3.6.0.slim.min.js' },
+    { src: 'https://cdn.jsdelivr.net/npm/popper.js@2.9.3/dist/umd/popper.min.js' },
+    { src: 'bootstrap/dist/js/bootstrap.min.js' }
+  ],
 }
