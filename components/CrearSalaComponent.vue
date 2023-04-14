@@ -13,13 +13,7 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-// import VModal from 'vue-js-modal'
-
-// Vue.use(VModal)
-// import Vue from 'vue'
-import Swal from 'vue-sweetalert2'
-// import $ from 'jquery';
+import Swal from "sweetalert2";
 
 
 export default {
