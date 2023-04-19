@@ -11,12 +11,12 @@
 </template>
 
 <script>
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 import $ from 'jquery';
 
 export default {
     name: 'MainComponent',
-    // props: ["gamename"],
+    // props: ["gamename", "playernumber"],
     data() {
         return {
             player_1: {
@@ -26,13 +26,14 @@ export default {
                 lives: 5,
             },
             word: undefined,
-            player_turn: undefined
+            player_turn: undefined,
+            player_number: "P2",
+            isMyTurn: false,
         }
     },
     async created() {
         console.log('GAME STATUS')
         await this.getStatusGame();
-        $(document).on("keyup", this.tryLetter);
     },
     methods: {
         async getStatusGame() {
@@ -41,13 +42,14 @@ export default {
                     `https://penjat.codifi.cat`,
                         {
                             action: "infoGame",
-                            gameName: "Astronauta Generoso",
+                            gameName: "ViniGod",
                         },
                 );
 
                 this.player_1.lives = data.gameInfo.livesP1
                 this.player_2.lives = data.gameInfo.livesP2
                 this.player_turn = data.player
+                
                 $('#letters').html(data.gameInfo.wordCompleted)
 
                 console.log(data)
@@ -56,12 +58,43 @@ export default {
             }
         },
 
+        checkGameStatus() {
+            if(this.player_turn === this.player_number){
+                this.isMyTurn = true
+                $(document).on("keyup", this.tryLetter);
+                
+            } else {
+                this.isMyTurn = false
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'info',
+                    title: this.player_number === "P1" ? "Player 2 is playing" : "Player 1 is playing",
+                })
+
+                $(document).on("keyup", function(){
+                    Toast.fire({
+                        icon: 'info',
+                        title: this.player_number === "P1" ? "Player 2 is playing" : "Player 1 is playing",
+                    })
+                });
+            }
+        },
         async tryLetter(event){
             const { data } = this.$axios.post(
                     `https://penjat.codifi.cat`,
                         {
                             action: "playGame",
-                            gameName: "Astronauta Generoso",
+                            gameName: "ViniGod",
                             word: `${event.key.toUpperCase()}`,
                             player: `${this.player_turn}`
                         },
