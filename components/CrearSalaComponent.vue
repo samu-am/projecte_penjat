@@ -69,7 +69,14 @@ export default {
                         },
                     );
                     console.log(data)
-                }
+                } 
+                // else {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Oops...',
+                //         text: 'Hay campos vacios.'
+                //     })
+                // }
             
         },
     },
