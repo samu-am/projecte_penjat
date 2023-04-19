@@ -1,15 +1,16 @@
 <template>
-  <div class="container">
-    <h1>INICIO</h1>
+  
+    <div class="container">
+        <h1>INICIO</h1>
 
-    <div>
-      <button @click="formCreate">Crear sala</button>
-    </div>
-    
-    <div>
-    <button>Unirse a una sala</button>
-    </div>
-  </div>
+        <div>
+        <button @click="formCreate">Crear sala</button>
+        </div>
+        
+        <div>
+        <button>Unirse a una sala</button>
+        </div>
+    </div> 
 </template>
 
 <script>
@@ -22,10 +23,11 @@ export default {
         return {
             nombreSala: '',
             contrasenaSala: '',
+            turn: '',
         }
     },
     methods: {
-        formCreate() {
+        async formCreate() {
             
             Swal.fire({
                 title: 'Crear tabla',
@@ -44,18 +46,30 @@ export default {
                 preConfirm: () => {
                     const nameInput = Swal.getPopup()?.querySelector('#name')
                     const passwordInput = Swal.getPopup()?.querySelector('#password')
-                    if (this.validateData(nameInput.value, passwordInput.value)) {
-                        Swal.showValidationMessage(this.errors.join("<br>"))
-                    }
+                    
                     return { name: nameInput.value, password: passwordInput.value }
                 },
             }).then((result) => {
-
+                
                 this.nombreSala = result.value?.name ?? ""
                 this.contrasenaSala = result.value?.password ?? ""
-                // this.profile!.nombreSala = result.value?.name ?? ""
-                // this.profile!.contrasenaSala = result.value?.password ?? ""
+                    
+                
             })
+            
+            if (this.nombreSala !== "" && this.contrasenaSala !== "") {
+                    this.turn = "P1";
+                    console.log(this.nombreSala)
+                    const { data } = await this.$axios.post(
+                        `https://penjat.codifi.cat`,
+                        {
+                        action: "createGame",
+                        gameName: this.contrasenaSala,
+                        gamePassword: "y"
+                        },
+                    );
+                    console.log(data)
+                }
             
         },
     },
