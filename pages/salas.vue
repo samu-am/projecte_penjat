@@ -27,7 +27,7 @@ export default {
         }
     },
     methods: {
-        async formCreate() {
+        formCreate() {
             
             Swal.fire({
                 title: 'Crear partida',
@@ -49,15 +49,12 @@ export default {
                     
                     return { name: nameInput.value, password: passwordInput.value }
                 },
-            }).then((result) => {
+            }).then(async (result) => {
                 
                 this.nombreSala = result.value?.name ?? ""
                 this.contrasenaSala = result.value?.password ?? ""
-                    
                 
-            })
-            
-            if (this.nombreSala !== "" && this.contrasenaSala !== "") {
+                if (this.nombreSala !== "" && this.contrasenaSala !== "") {
                     this.turn = "P1";
                     
                     const { data } = await this.$axios.post(
@@ -77,9 +74,12 @@ export default {
                 //         text: 'Hay campos vacios.'
                 //     })
                 // }
+                
+            })
+            
             
         },
-        async formUnirse () {
+        formUnirse () {
             Swal.fire({
                 title: 'Unirse a partida',
                 showClass: {
@@ -98,25 +98,25 @@ export default {
                     
                     return { name: nameInput.value}
                 },
-            }).then((result) => {
+            }).then(async (result) => {
                 
                 this.nombreSala = result.value?.name ?? ""
                     
+                if (this.nombreSala !== "") {
+                    this.turn = "P2";
+                    
+                    const { data } = await this.$axios.post(
+                        `https://penjat.codifi.cat`,
+                        {
+                        action: "infoGame",
+                        gameName: this.nombreSala
+                        },
+                    );
+                    console.log(data);
+            }
                 
             })
-            
-            if (this.nombreSala !== "") {
-                this.turn = "P2";
-                
-                const { data } = await this.$axios.post(
-                    `https://penjat.codifi.cat`,
-                    {
-                    action: "infoGame",
-                    gameName: this.nombreSala
-                    },
-                );
-                console.log(data);
-            } 
+        
         }
     },
 }
