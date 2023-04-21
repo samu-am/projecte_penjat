@@ -28,7 +28,7 @@ export default {
         }
     },
     methods: {
-        async formCreate() {
+        formCreate() {
             
             Swal.fire({
                 title: 'Crear tabla',
@@ -40,7 +40,7 @@ export default {
                 },
                 html: `
                     <input type="text" id="name" class="swal2-input" placeholder="Nom">
-                    <input type="text" id="password" class="swal2-input" placeholder="Contraseña">
+                    <input type="password" id="password" class="swal2-input" placeholder="Contraseña">
                 `,
                 confirmButtonText: 'Crear',
                 focusConfirm: false,
@@ -50,29 +50,30 @@ export default {
                     
                     return { name: nameInput.value, password: passwordInput.value }
                 },
-            }).then((result) => {
+            }).then(async (result) => {
                 
                 this.gameData.nombreSala = result.value?.name ?? ""
-                this.gameData.contrasenaSala = result.value?.password ?? ""                    
+                this.gameData.contrasenaSala = result.value?.password ?? ""
                 
+                if (this.gameData.nombreSala !== "" && this.gameData.contrasenaSala !== "") {
+                    this.gameData.playerName = "P1";
+                    const { data } = await this.$axios.post(
+                        `https://penjat.codifi.cat`,
+                        {
+                        action: "createGame",
+                        gameName: this.gameData.nombreSala,
+                        gamePassword: this.gameData.contrasenaSala
+                        },
+                    );
+
+                    await this.$store.dispatch('gameinfo/fetchCreateGameData', this.gameData)
+
+                    console.log(data)
+                    this.$router.push('/gamecontrol')
+                }
             })
             
-            if (this.gameData.nombreSala !== "" && this.gameData.contrasenaSala !== "") {
-                this.gameData.playerName = "P1";
-                const { data } = await this.$axios.post(
-                    `https://penjat.codifi.cat`,
-                    {
-                    action: "createGame",
-                    gameName: this.gameData.nombreSala,
-                    gamePassword: this.gameData.contrasenaSala
-                    },
-                );
-
-                await this.$store.dispatch('gameinfo/fetchCreateGameData', this.gameData)
-
-                console.log(data)
-                this.$router.push('/gamecontrol')
-            }
+            
             // else {
             //     Swal.fire({
             //         icon: 'error',
