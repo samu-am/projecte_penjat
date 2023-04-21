@@ -39,7 +39,7 @@ export default {
                 },
                 html: `
                     <input type="text" id="name" class="swal2-input" placeholder="Nom">
-                    <input type="text" id="password" class="swal2-input" placeholder="Contraseña">
+                    <input type="password" id="password" class="swal2-input" placeholder="Contraseña">
                 `,
                 confirmButtonText: 'Crear',
                 focusConfirm: false,
