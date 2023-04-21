@@ -30,7 +30,7 @@ export default {
         async formCreate() {
             
             Swal.fire({
-                title: 'Crear tabla',
+                title: 'Crear partida',
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown'
                 },
@@ -79,8 +79,44 @@ export default {
                 // }
             
         },
-        formUnirse () {
-            console.log("unirse")
+        async formUnirse () {
+            Swal.fire({
+                title: 'Unirse a partida',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                html: `
+                    <input type="text" id="name" class="swal2-input" placeholder="Nom">
+                `,
+                confirmButtonText: 'Crear',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const nameInput = Swal.getPopup()?.querySelector('#name')
+                    
+                    return { name: nameInput.value}
+                },
+            }).then((result) => {
+                
+                this.nombreSala = result.value?.name ?? ""
+                    
+                
+            })
+            
+            if (this.nombreSala !== "") {
+                this.turn = "P2";
+                
+                const { data } = await this.$axios.post(
+                    `https://penjat.codifi.cat`,
+                    {
+                    action: "infoGame",
+                    gameName: this.nombreSala
+                    },
+                );
+                console.log(data);
+            } 
         }
     },
 }

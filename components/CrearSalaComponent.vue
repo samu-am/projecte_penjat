@@ -8,7 +8,7 @@
         </div>
         
         <div>
-        <button>Unirse a una sala</button>
+        <button @click="formUnirse">Unirse a una sala</button>
         </div>
     </div> 
 </template>
@@ -59,7 +59,7 @@ export default {
             
             if (this.nombreSala !== "" && this.contrasenaSala !== "") {
                     this.turn = "P1";
-                    console.log(this.nombreSala)
+                    
                     const { data } = await this.$axios.post(
                         `https://penjat.codifi.cat`,
                         {
@@ -79,6 +79,9 @@ export default {
                 // }
             
         },
+        formUnirse () {
+            console.log("unirse")
+        }
     },
 }
 </script>
