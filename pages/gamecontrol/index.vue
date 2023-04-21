@@ -41,7 +41,7 @@ export default {
     },
     mounted() {
         console.log('GAME STATUS')
-        console.log(this.gameName)
+        console.log(this.playerName)
         this.getStatusGame()
     },
     methods: {

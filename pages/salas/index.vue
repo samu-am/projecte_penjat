@@ -84,7 +84,38 @@ export default {
             
         },
         formUnirse () {
-            console.log("unirse")
+            Swal.fire({
+                title: 'Unirse a partida',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                html: `
+                    <input type="text" id="name" class="swal2-input" placeholder="Nom">
+                `,
+                confirmButtonText: 'Crear',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const nameInput = Swal.getPopup()?.querySelector('#name')
+                    
+                    return { name: nameInput.value}
+                },
+            }).then(async (result) => {
+                
+                this.gameData.nombreSala = result.value?.name ?? ""
+                    
+                if (this.gameData.nombreSala !== "") {
+                    this.gameData.playerName = "P2";
+                    this.gameData.contrasenaSala = '';
+                    
+                    await this.$store.dispatch('gameinfo/fetchCreateGameData', this.gameData)
+                    this.$router.push('/gamecontrol')
+            }
+                
+            })
+        
         }
     },
 }
