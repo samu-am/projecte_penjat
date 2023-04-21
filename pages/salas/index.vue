@@ -4,11 +4,11 @@
         <h1>INICIO</h1>
 
         <div>
-        <button @click="formCreate">Crear sala</button>
+            <button @click="formCreate">Crear sala</button>
         </div>
         
         <div>
-        <button>Unirse a una sala</button>
+            <button @click="formUnirse">Unirse a una sala</button>
         </div>
     </div> 
 </template>
@@ -16,14 +16,15 @@
 <script>
 import Swal from "sweetalert2";
 
-
 export default {
     name: 'CrearSalaComponent',
     data() {
         return {
-            nombreSala: '',
-            contrasenaSala: '',
-            turn: '',
+            gameData: {
+                nombreSala: '',
+                contrasenaSala: '',
+                playerName: '',
+            },
         }
     },
     methods: {
@@ -51,34 +52,39 @@ export default {
                 },
             }).then((result) => {
                 
-                this.nombreSala = result.value?.name ?? ""
-                this.contrasenaSala = result.value?.password ?? ""
-                    
+                this.gameData.nombreSala = result.value?.name ?? ""
+                this.gameData.contrasenaSala = result.value?.password ?? ""                    
                 
             })
             
-            if (this.nombreSala !== "" && this.contrasenaSala !== "") {
-                    this.turn = "P1";
-                    console.log(this.nombreSala)
-                    const { data } = await this.$axios.post(
-                        `https://penjat.codifi.cat`,
-                        {
-                        action: "createGame",
-                        gameName: this.contrasenaSala,
-                        gamePassword: "y"
-                        },
-                    );
-                    console.log(data)
-                } 
-                // else {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'Hay campos vacios.'
-                //     })
-                // }
+            if (this.gameData.nombreSala !== "" && this.gameData.contrasenaSala !== "") {
+                this.gameData.playerName = "P1";
+                const { data } = await this.$axios.post(
+                    `https://penjat.codifi.cat`,
+                    {
+                    action: "createGame",
+                    gameName: this.gameData.nombreSala,
+                    gamePassword: this.gameData.contrasenaSala
+                    },
+                );
+
+                await this.$store.dispatch('gameinfo/fetchCreateGameData', this.gameData)
+
+                console.log(data)
+                this.$router.push('/gamecontrol')
+            }
+            // else {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Oops...',
+            //         text: 'Hay campos vacios.'
+            //     })
+            // }
             
         },
+        formUnirse () {
+            console.log("unirse")
+        }
     },
 }
 </script>

@@ -13,6 +13,7 @@
 <script>
 import Swal from 'sweetalert2'
 import $ from 'jquery';
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'MainComponent',
@@ -31,9 +32,17 @@ export default {
             isMyTurn: false,
         }
     },
-    async created() {
+    computed: {
+        ...mapGetters({
+            gameName: 'gameinfo/gameName',
+            gamePassword: 'gameinfo/gamePassword',
+            playerName: 'gameinfo/playerName',
+        }),
+    },
+    mounted() {
         console.log('GAME STATUS')
-        await this.getStatusGame();
+        console.log(this.gameName)
+        this.getStatusGame()
     },
     methods: {
         async getStatusGame() {
@@ -42,7 +51,7 @@ export default {
                     `https://penjat.codifi.cat`,
                         {
                             action: "infoGame",
-                            gameName: "ViniGod",
+                            gameName: this.gameName,
                         },
                 );
 
@@ -94,7 +103,7 @@ export default {
                     `https://penjat.codifi.cat`,
                         {
                             action: "playGame",
-                            gameName: "ViniGod",
+                            gameName: this.gameName,
                             word: `${event.key.toUpperCase()}`,
                             player: `${this.player_turn}`
                         },
