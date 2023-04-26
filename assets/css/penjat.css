@@ -210,3 +210,21 @@ div.letters_container span {
 		font-size: 5vw;
 	}
 }
+
+
+
+/* PAG. SALAS */
+
+.salas {
+    height: 100vh;  
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.salas button{
+    margin-top: 2em;
+    padding: 1em;
+}

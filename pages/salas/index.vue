@@ -1,16 +1,16 @@
-<template>
+<template class="salas">
   
-    <div class="container">
-        <h1>INICIO</h1>
+        <div class="container salas">
+            <h1>INICIO</h1>
 
-        <div>
-            <button @click="formCreate">Crear sala</button>
-        </div>
-        
-        <div>
-            <button @click="formUnirse">Unirse a una sala</button>
-        </div>
-    </div> 
+            <div>
+                <button @click="formCreate">Crear sala</button>
+            </div>
+            
+            <div>
+                <button @click="formUnirse">Unirse a una sala</button>
+            </div>
+        </div> 
 </template>
 
 <script>
