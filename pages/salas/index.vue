@@ -33,7 +33,7 @@ export default {
         formCreate() {
             
             Swal.fire({
-                title: 'Crear tabla',
+                title: 'Crear partida',
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown'
                 },
