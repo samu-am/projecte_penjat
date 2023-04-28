@@ -25,6 +25,7 @@ export default {
                 contrasenaSala: '',
                 playerName: '',
             },
+            reloaded: false,
         }
     },
     methods: {
@@ -116,7 +117,7 @@ export default {
                 
             })
         
-        }
+        },
     },
 }
 </script>

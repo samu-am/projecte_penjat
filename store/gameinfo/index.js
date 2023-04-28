@@ -20,12 +20,15 @@ export default {
       SAVE_PLAYERNAME(state, playerName) {
         state.playerName = playerName
       },
+      CLEAN_GAMEINFO(state, gameName, gamePassword, playerName) {
+        state.gameName = ''
+        state.gamePassword = ''
+        state.playerName = ''
+      }
     },
     actions: {
       fetchCreateGameData({ commit }, gameData) {
         try {
-          console.log('SAVING GAME DATA ------')
-          console.log(gameData)
           commit('SAVE_GAMENAME', gameData.nombreSala)
           commit('SAVE_GAMEPASSWORD', gameData.contrasenaSala)
           commit('SAVE_PLAYERNAME', gameData.playerName)
@@ -36,7 +39,9 @@ export default {
           commit("setLoading", false);
         }
       },
-
+      cleanGameInfo({ commit }) {
+        commit('CLEAN_GAMEINFO')
+      }
     },
   };
   
