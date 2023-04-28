@@ -1,14 +1,16 @@
-<template class="salas">
+<template>
   
         <div class="container salas">
-            <h1>INICIO</h1>
+            <div id="fond">
+                <h1 id="title">INICIO</h1>
 
-            <div>
-                <button @click="formCreate">Crear sala</button>
-            </div>
-            
-            <div>
-                <button @click="formUnirse">Unirse a una sala</button>
+                <div>
+                    <button id="btnCrear" @click="formCreate">Crear sala</button>
+                </div>
+                
+                <div>
+                    <button id="btnUnirse" @click="formUnirse">Unirse a una sala</button>
+                </div>
             </div>
         </div> 
 </template>
