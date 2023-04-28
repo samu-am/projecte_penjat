@@ -1,16 +1,18 @@
 <template>
   
-    <div class="container">
-        <h1>INICIO</h1>
+        <div class="container salas">
+            <div id="fond">
+                <h1 id="title">INICIO</h1>
 
-        <div>
-            <button @click="formCreate">Crear sala</button>
-        </div>
-        
-        <div>
-            <button @click="formUnirse">Unirse a una sala</button>
-        </div>
-    </div> 
+                <div>
+                    <button id="btnCrear" @click="formCreate">Crear sala</button>
+                </div>
+                
+                <div>
+                    <button id="btnUnirse" @click="formUnirse">Unirse a una sala</button>
+                </div>
+            </div>
+        </div> 
 </template>
 
 <script>
@@ -32,7 +34,7 @@ export default {
         formCreate() {
             
             Swal.fire({
-                title: 'Crear tabla',
+                title: 'Crear partida',
                 showClass: {
                     popup: 'animate__animated animate__fadeInDown'
                 },
