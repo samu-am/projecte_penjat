@@ -33,10 +33,7 @@ export default {
           commit('SAVE_GAMEPASSWORD', gameData.contrasenaSala)
           commit('SAVE_PLAYERNAME', gameData.playerName)
         } catch (e) {
-          console.error(e);
-          commit("setItems", []);
-        } finally {
-          commit("setLoading", false);
+          console.error(e)
         }
       },
       cleanGameInfo({ commit }) {

@@ -56,7 +56,7 @@ export default {
     },
     watch: {
         time_counter() {
-            if(this.time_counter % 2 === 0) {
+            if(this.time_counter % 1 === 0) {
                 this.getStatusGame()
             }
         }
