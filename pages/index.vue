@@ -1,17 +1,21 @@
 <template>
   
-        <div class="container salas">
-            <div id="fond">
-                <h1 id="title">INICIO</h1>
+        <div>
+            <div class="container salas">
+                <div id="fond">
+                    <h1 id="title">INICIO</h1>
 
-                <div>
-                    <button id="btnCrear" @click="formCreate">Crear sala</button>
-                </div>
-                
-                <div>
-                    <button id="btnUnirse" @click="formUnirse">Unirse a una sala</button>
+                    <div>
+                        <button id="btnCrear" @click="formCreate">Crear sala</button>
+                    </div>
+                    
+                    <div>
+                        <button id="btnUnirse" @click="formUnirse">Unirse a una sala</button>
+                    </div>
                 </div>
             </div>
+            
+            <div class="spinner-border d-none" style="width: 5rem; height: 5rem;" role="status"></div>
         </div> 
 </template>
 
@@ -58,6 +62,10 @@ export default {
                     return { name: nameInput.value, password: passwordInput.value }
                 },
             }).then(async (result) => {
+                
+                document.querySelector('.salas').classList.add('d-none');
+
+                document.querySelector('.spinner-border').classList.remove('d-none');
                 
                 this.gameData.nombreSala = result.value?.name ?? ""
                 this.gameData.contrasenaSala = result.value?.password ?? ""
