@@ -17,6 +17,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import $ from 'jquery';
 
 export default {
     name: 'CrearSalaComponent',
@@ -29,6 +30,9 @@ export default {
             },
             reloaded: false,
         }
+    },
+    mounted() {
+        $(document).unbind('keyup');
     },
     methods: {
         formCreate() {
