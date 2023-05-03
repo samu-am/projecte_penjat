@@ -45,6 +45,7 @@ export default {
             timer_on: false,
             wordPending: true,
             gameOn: true,
+            showing: false,
         }
     },
     computed: {
@@ -187,17 +188,20 @@ export default {
 
                 if(this.player_turn === this.playerName){
                     this.isMyTurn = true
+                    this.showing = false
                     Toast.close()
                     $(document).on("keyup", this.tryLetter);
                     
                 } else {
+                    $(document).unbind('keyup');
                     this.isMyTurn = false
-
-                    Toast.fire({
-                        icon: 'info',
-                        title: this.playerName === "P1" ? "Player 2 is playing" : "Player 1 is playing",
-                    })
-
+                    if(!this.showing){
+                        Toast.fire({
+                            icon: 'info',
+                            title: this.playerName === "P1" ? "Player 2 is playing" : "Player 1 is playing",
+                        })
+                        this.showing = true
+                    }
                     $(document).on("keyup", function(){
                         Toast.fire({
                             icon: 'info',
